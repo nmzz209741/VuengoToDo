@@ -32,10 +32,12 @@
           To Do
         </h2>
         <div class="todo">
-          <div class="card">
-            <div class="card-content">Task 1</div>
+          <div class="card"
+            v-for="task in todoTasks"
+            :key="task.id">
+            <div class="card-content">{{ task.title }}</div>
             <footer class="card-footer">
-              <a href="" class="card-footer-item">In Progress</a>
+              <a class="card-footer-item">In Progress</a>
             </footer>
           </div>
         </div>
@@ -45,8 +47,10 @@
           In Progress
         </h2>
         <div class="in_progress">
-          <div class="card">
-            <div class="card-content">Task 2</div>
+          <div class="card"
+            v-for="task in inProgressTasks"
+            :key="task.id">
+            <div class="card-content">{{task.title}}</div>
             <footer class="card-footer">
               <a href="" class="card-footer-item">Done</a>
             </footer>
@@ -58,8 +62,10 @@
           Done
         </h2>
         <div class="done">
-          <div class="card">
-            <div class="card-content">Task 3</div>
+          <div class="card"
+            v-for="task in doneTasks"
+            :key="task.id">
+            <div class="card-content">{{task.title}}</div>
             <footer class="card-footer">
               <a href="" class="card-footer-item">Delete</a>
             </footer>
@@ -70,8 +76,8 @@
   </div>
 </template>
 <script>
-
-// import axios from 'axios';
+const BASE_URL = 'http://127.0.0.1:8000/'
+import axios from 'axios';
 export default {
   name: 'Home',
   data() {
@@ -79,13 +85,35 @@ export default {
       tasks: [],
     };
   },
-  methods: {
-    // getTasks: function () {
-    //   var vm = this
-    //   axios.get('http://127.0.0.1:8000/tasks/')
-    //   .then()
-    // }
+  created() {
+    this.getTasks()
   },
+  methods: {
+    getTasks: function () {
+      var vm = this
+      axios.get('http://127.0.0.1:8000/tasks/', {
+        auth: {
+          username: 'admin',
+          password: 'admin'
+        }
+      })
+      .then(response => {
+        console.log(response)
+        vm.tasks = response.data
+      })
+    }
+  },
+  computed: {
+    todoTasks() {
+      return this.tasks.filter(task=> task.status === 'todo')
+    },
+    inProgressTasks() {
+      return this.tasks.filter(task=> task.status === 'in_progress')
+    },
+    doneTasks() {
+      return this.tasks.filter(task=> task.status === 'done')
+    }
+  }
 };
 </script>
 
