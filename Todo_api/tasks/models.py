@@ -1,6 +1,6 @@
 from django.db import models
 
-class Tasks(models.Model):
+class Task(models.Model):
   TODO = 'todo'
   IN_PROGRESS = 'in_progress'
   DONE = 'done'
@@ -12,6 +12,6 @@ class Tasks(models.Model):
   )
 
   title = models.CharField(max_length=255, blank=False)
-  status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+  status = models.CharField(max_length=255, choices=STATUS_CHOICES, default=TODO)
   created_at = models.DateTimeField(auto_now_add=True)
   modified_at = models.DateTimeField(auto_now=True)
