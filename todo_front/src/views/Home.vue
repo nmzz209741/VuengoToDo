@@ -60,7 +60,7 @@
             <div class="card" v-for="task in doneTasks" :key="task.id">
               <div class="card-header">{{task.title}}</div>
               <div class="card-footer">
-                <a href class="card-footer-item">Delete</a>
+                <a href class="card-footer-item" @click="deleteTask(task)">Delete</a>
               </div>
             </div>
           </div>
@@ -150,6 +150,16 @@ export default {
       }).then(() => {
         task.status = status;
       });
+    },
+    deleteTask: function (task) {
+      axios({
+        method: 'delete',
+        url: task.url,
+        auth: AUTH
+      }).then(() => {
+        const delIndex = this.tasks.findIndex(item => item.url == task.url)
+        this.tasks.splice(delIndex, 1)
+      })
     }
   },
   computed: {
