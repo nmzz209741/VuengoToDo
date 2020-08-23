@@ -36,10 +36,10 @@
           <h4 class="subtitle">To Do</h4>
           <div class="todo">
             <div class="card" v-for="task in todoTasks" :key="task.id">
-              <div class="card-content">{{ task.title }}</div>
-              <footer class="card-footer">
-                <a class="card-footer-item">In Progress</a>
-              </footer>
+              <div class="card-header">{{ task.title }}</div>
+              <div class="card-footer">
+                <a class="card-footer-item" @click="setStatus(task, 'in_progress')">In Progress</a>
+              </div>
             </div>
           </div>
         </div>
@@ -47,10 +47,10 @@
           <h4 class="subtitle">In Progress</h4>
           <div class="in_progress">
             <div class="card" v-for="task in inProgressTasks" :key="task.id">
-              <div class="card-content">{{task.title}}</div>
-              <footer class="card-footer">
-                <a href class="card-footer-item">Done</a>
-              </footer>
+              <div class="card-header">{{task.title}}</div>
+              <div class="card-footer">
+                <a class="card-footer-item" @click="setStatus(task,'done')">Done</a>
+              </div>
             </div>
           </div>
         </div>
@@ -58,10 +58,10 @@
           <h4 class="subtitle">Done</h4>
           <div class="done">
             <div class="card" v-for="task in doneTasks" :key="task.id">
-              <div class="card-content">{{task.title}}</div>
-              <footer class="card-footer">
+              <div class="card-header">{{task.title}}</div>
+              <div class="card-footer">
                 <a href class="card-footer-item">Delete</a>
-              </footer>
+              </div>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default {
       errors: []
     };
   },
-  created() {
+  mounted() {
     this.getTasks();
   },
   methods: {
@@ -131,6 +131,25 @@ export default {
       } else {
         if (!this.title) this.errors.push("Title is required");
       }
+    },
+    setStatus: function (task, status) {
+      axios({
+        method: "patch",
+        url: task.url,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        data: {
+          status: status,
+          description: task.description
+        },
+        auth: {
+          username: "admin",
+          password: "admin"
+        }
+      }).then(() => {
+        task.status = status;
+      });
     }
   },
   computed: {
