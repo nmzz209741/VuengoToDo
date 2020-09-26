@@ -21,3 +21,22 @@
   font-weight: bold;
   background-color: lightpink;
 }
+
+.task-panel {
+  margin: 2.5em;
+}
+
+.task-panel-empty {
+  text-align: center;
+  color: #555;
+  font-size: large;
+}
+
+.add-panel {
+  margin: 2.5em;
+}
+
+a {
+  cursor: pointer;
+  color: #555 !important;
+}
