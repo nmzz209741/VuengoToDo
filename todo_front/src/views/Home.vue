@@ -119,7 +119,8 @@ export default {
             let newTask = {
               id: response.data.id,
               title: this.title,
-              status: "todo"
+              status: "todo",
+              url: response.data.url
             };
             this.tasks.push(newTask);
             this.title = "";
