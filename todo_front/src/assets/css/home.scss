@@ -2,7 +2,22 @@
   margin: 1em;
   text-align: center;
 }
+
 .subtitle {
   text-align: center;
-  
+}
+
+.footer-in-progress {
+  font-weight: bold;
+  background-color: lightgoldenrodyellow;
+}
+
+.footer-done {
+  font-weight: bold;
+  background-color: lightgreen;
+}
+
+.footer-delete {
+  font-weight: bold;
+  background-color: lightpink;
 }

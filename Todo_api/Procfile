@@ -1,0 +1,2 @@
+web: gunicorn Todo_api.wsgi
+release: python manage.py migrate

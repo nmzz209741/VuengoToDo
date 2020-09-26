@@ -36,8 +36,8 @@
           <h4 class="subtitle">To Do</h4>
           <div class="todo">
             <div class="card" v-for="task in todoTasks" :key="task.id">
-              <div class="card-header">{{ task.title }}</div>
-              <div class="card-footer">
+              <div class="card-header header-todo">{{ task.title }}</div>
+              <div class="card-footer footer-in-progress">
                 <a class="card-footer-item" @click="setStatus(task, 'in_progress')">In Progress</a>
               </div>
             </div>
@@ -47,8 +47,8 @@
           <h4 class="subtitle">In Progress</h4>
           <div class="in_progress">
             <div class="card" v-for="task in inProgressTasks" :key="task.id">
-              <div class="card-header">{{task.title}}</div>
-              <div class="card-footer">
+              <div class="card-header header-in-progress">{{task.title}}</div>
+              <div class="card-footer footer-done">
                 <a class="card-footer-item" @click="setStatus(task,'done')">Done</a>
               </div>
             </div>
@@ -58,8 +58,8 @@
           <h4 class="subtitle">Done</h4>
           <div class="done">
             <div class="card" v-for="task in doneTasks" :key="task.id">
-              <div class="card-header">{{task.title}}</div>
-              <div class="card-footer">
+              <div class="card-header header-done">{{task.title}}</div>
+              <div class="card-footer footer-delete">
                 <a href class="card-footer-item" @click="deleteTask(task)">Delete</a>
               </div>
             </div>
